@@ -1,13 +1,13 @@
-"""Console script for python_indicative."""
+"""Console script for indicative."""
 import sys
 import click
 
 
 @click.command()
 def main(args=None):
-    """Console script for python_indicative."""
+    """Console script for indicative."""
     click.echo("Replace this message by putting your code into "
-               "python_indicative.cli.main")
+               "indicative.cli.main")
     click.echo("See click documentation at https://click.palletsprojects.com/")
     return 0
 
