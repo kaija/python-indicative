@@ -7,8 +7,9 @@
 # This client is a good choice for small volumes of events in standalone
 # projects or for testing.
 #######################################################################
-from urlparse import urlparse
-import httplib, sys
+from urllib.parse import urlparse
+import http.client
+import sys
 import logging
 import time
 try:
@@ -46,7 +47,7 @@ _misconfigured_warning = False
 def _sendEvent(event):
     try:
         url = urlparse(API_URL)
-        conn = httplib.HTTPConnection(url.netloc)
+        conn = http.client.HTTPConnection(url.netloc)
         event_string = json.dumps(event)
         conn.request('POST', url.path, event_string, {'Content-Type':'application/json'})
         res = conn.getresponse()
@@ -83,7 +84,7 @@ def record(event_name, event_unique_id, param_dict={}, api_key=None):
 
 
         event = {'eventName':event_name, 'apiKey':api_key, 'eventUniqueId':event_unique_id,
-                'eventTime':long(round(time.time()*1000)), 'properties': param_dict}
+                'eventTime':int(round(time.time()*1000)), 'properties': param_dict}
         _sendEvent(event)
 
 """ Sets the API key and number of threads to use when recording events.
