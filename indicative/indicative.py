@@ -12,28 +12,7 @@ import http.client
 import sys
 import logging
 import time
-try:
-    import json
-except ImportError:
-    #Python 2.5 does not come with json module.
-    #This is kinda hacky, but it does work for our purposes
-    class JSON:
-        def dumps(self, map):
-                        output = '{'
-                        addComma = False
-                        for key, value in map.iteritems():
-                                if addComma:
-                                        output = ''.join([output,','])
-                                if isinstance(value, dict):
-                                        output = ''.join([output,'"',str(key).replace('"','\\"'),'":',self.dumps(value)])
-                                else:
-                                        output = ''.join([output,'"',str(key).replace('"','\\"'),'":','"',str(value).replace('"','\\"'),'"'])
-                                addComma=True
-                        output = ''.join([output,'}'])
-                        print(output)
-                        return output
-
-    json = JSON()
+import json
 
 API_URL = 'https://api.indicative.com/service/event'
 CONTENT_TYPE = 'application/json'
